@@ -22,7 +22,7 @@ class ModelGateway:
 
     def __init__(self):
         self.embedding_engine = EmbeddingEngine()
-        self.movie_repo = MovieRepository("movies.json")
+        self.movie_repo = MovieRepository("data/movies.json")
         self.groq = GroqClient()
         # Fairness-aware recommender
         self.fair_recommender = FairGroupRecommender(self.embedding_engine)

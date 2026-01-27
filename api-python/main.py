@@ -5,9 +5,20 @@ from ai.types import (
     GatewayRequest, GatewayResponse,
     SwipeRequest, SwipeResponse, SessionStatsResponse, MatchesResponse
 )
+from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 load_dotenv()
-app = FastAPI(title="CineMatch Recommendation API")
+
+
+@asynccontextmanager
+async def lifespan(app):
+    # Seed ChromaDB on startup if empty
+    from startup import seed_if_empty
+    seed_if_empty()
+    yield
+
+
+app = FastAPI(title="CineMatch Recommendation API", lifespan=lifespan)
 
 # CORS - get request from frontend
 app.add_middleware(
