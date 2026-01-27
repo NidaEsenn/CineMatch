@@ -12,7 +12,7 @@ class GroqClient:
     def _load_movies(self) -> list[dict]:
         """Load movie dataset from a local JSON file"""
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        movies_path = os.path.join(current_dir, "..", "movies.json")
+        movies_path = os.path.join(current_dir, "..", "data", "movies.json")
         with open(movies_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
