@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: cinematch-api
+    runtime: python
+    rootDir: api-python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: TMDB_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.11"

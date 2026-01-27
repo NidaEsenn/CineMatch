@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fdf4ff;
+  --color-primary-100: #fae8ff;
+  --color-primary-200: #f5d0fe;
+  --color-primary-300: #f0abfc;
+  --color-primary-400: #e879f9;
+  --color-primary-500: #d946ef;
+  --color-primary-600: #c026d3;
+  --color-primary-700: #a21caf;
+  --color-primary-800: #86198f;
+  --color-primary-900: #701a75;
+
+  --color-accent-50: #fff7ed;
+  --color-accent-100: #ffedd5;
+  --color-accent-200: #fed7aa;
+  --color-accent-300: #fdba74;
+  --color-accent-400: #fb923c;
+  --color-accent-500: #f97316;
+  --color-accent-600: #ea580c;
+  --color-accent-700: #c2410c;
+  --color-accent-800: #9a3412;
+  --color-accent-900: #7c2d12;
+}
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 15, 25;
+  --background-end-rgb: 30, 20, 50;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+}
+
+* {
+  border-color: #374151;
+}
+
+/* Component classes */
+.card-gradient {
+  background: linear-gradient(to bottom right, rgba(31, 41, 55, 0.5), rgba(17, 24, 39, 0.5));
+  backdrop-filter: blur(4px);
+}
+
+.btn-primary {
+  background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-600));
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(217, 70, 239, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, var(--color-primary-600), var(--color-primary-700));
+  box-shadow: 0 20px 25px -5px rgba(217, 70, 239, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  background-color: #1f2937;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  border: 1px solid #4b5563;
+}
+
+.btn-secondary:hover {
+  background-color: #374151;
+  border-color: #6b7280;
+}
+
+.btn-secondary:active {
+  transform: scale(0.95);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: rgba(31, 41, 55, 0.5);
+  border: 1px solid #4b5563;
+  border-radius: 0.75rem;
+  color: white;
+  transition: all 0.2s;
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+.input-field:focus {
+  outline: none;
+  ring: 2px;
+  ring-color: var(--color-primary-500);
+  border-color: transparent;
+}
+
+.movie-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  aspect-ratio: 2/3;
+}
+
+.swipe-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3.75rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.swipe-hint-like {
+  right: 2rem;
+  color: #4ade80;
+  transform: translateY(-50%) rotate(12deg);
+}
+
+.swipe-hint-pass {
+  left: 2rem;
+  color: #f87171;
+  transform: translateY(-50%) rotate(-12deg);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, var(--color-primary-400), var(--color-accent-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Swipe animations */
+.swipe-card-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.swipe-card-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.swipe-card-exit {
+  opacity: 1;
+}
+
+.swipe-card-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+/* Match celebration animation */
+@keyframes celebrate {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.celebrate {
+  animation: celebrate 0.5s ease-in-out;
+}
+
+/* Pulse ring for matches */
+@keyframes ping-slow {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

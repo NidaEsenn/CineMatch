@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+gunicorn
+groq
+openai
+anthropic
+python-dotenv
+pydantic
+httpx
+chromadb
+sentence-transformers
+numpy
