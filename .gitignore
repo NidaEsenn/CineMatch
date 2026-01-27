@@ -18,9 +18,8 @@ __pycache__/
 .env.production.local
 .env.development.local
 
-# ChromaDB data (regenerated from embeddings)
-db/chroma/
-api-python/db/
+# ChromaDB data (regenerated from embeddings, too large for git)
+api-python/db/chroma/
 
 # IDE
 .vscode/
