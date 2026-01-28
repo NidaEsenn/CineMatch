@@ -211,9 +211,6 @@ GitHub Actions runs on every push:
 - Frontend: Lint and build verification
 - Backend: Quick evaluation test
 
-## License
-
-MIT
 
 ## Acknowledgments
 
