@@ -92,9 +92,9 @@ export default function CreateSessionPage() {
     try {
       await createWaitingSession(code, newParticipantId, name);
       setStep('code');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to create session:', err);
-      setError('Failed to create session. Please try again.');
+      setError(`Failed to create session: ${err?.message || err?.code || String(err)}`);
     }
   };
 
@@ -403,6 +403,13 @@ export default function CreateSessionPage() {
         )}
 
         {/* Step 4: Waiting Room */}
+        {step === 'waiting' && !firebaseSession && (
+          <div className="text-center py-12">
+            <Loader2 className="w-12 h-12 text-primary-500 animate-spin mx-auto mb-4" />
+            <p className="text-gray-400">Connecting to session...</p>
+          </div>
+        )}
+
         {step === 'waiting' && firebaseSession && (
           <motion.div
             initial={{ opacity: 0, x: 20 }}

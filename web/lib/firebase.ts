@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getDatabase, ref, set, get, onValue, push, update, remove, Database } from 'firebase/database';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOgqB54JKcOR2QDgcZkCVNDIlpufz7SSg",
@@ -15,6 +16,13 @@ const firebaseConfig = {
 // Initialize Firebase (avoid re-initialization)
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const database = getDatabase(app);
+const auth = getAuth(app);
+
+// Ensure user is anonymously signed in before any Firebase operation
+export async function ensureAuth(): Promise<void> {
+  if (auth.currentUser) return;
+  await signInAnonymously(auth);
+}
 
 // Session types for Firebase
 export interface FirebaseParticipant {
@@ -106,6 +114,7 @@ export async function joinFirebaseSession(
   moods: string[],
   preferenceNote?: string
 ): Promise<FirebaseSession | null> {
+  await ensureAuth();
   const sessionRef = ref(database, `sessions/${code}`);
   const snapshot = await get(sessionRef);
 
@@ -192,6 +201,7 @@ export async function createWaitingSession(
   hostId: string,
   hostName: string
 ): Promise<void> {
+  await ensureAuth();
   const sessionRef = ref(database, `sessions/${code}`);
 
   const session: FirebaseSession = {
@@ -224,6 +234,7 @@ export async function updateParticipantPreferences(
   preferenceNote: string,
   ready: boolean
 ): Promise<void> {
+  await ensureAuth();
   const participantRef = ref(database, `sessions/${code}/participants/${odIds}`);
   const snapshot = await get(participantRef);
 
@@ -255,6 +266,7 @@ export async function updateSessionWithMovies(
   movies: any[],
   modelUsed: string
 ): Promise<void> {
+  await ensureAuth();
   const moviesMap: Record<number, any> = {};
   movies.forEach(m => {
     moviesMap[m.id] = {

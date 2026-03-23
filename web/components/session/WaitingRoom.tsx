@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Check, Loader2, Copy, Share2, Sparkles } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -26,9 +26,11 @@ export default function WaitingRoom({
   const allReady = participants.length > 0 && participants.every(p => p.ready);
   const readyCount = participants.filter(p => p.ready).length;
 
-  // Auto-trigger when all ready
+  // Auto-trigger when all ready (only once, prevents infinite loop on API error)
+  const hasTriggered = useRef(false);
   useEffect(() => {
-    if (allReady && !isLoading) {
+    if (allReady && !isLoading && !hasTriggered.current) {
+      hasTriggered.current = true;
       onAllReady();
     }
   }, [allReady, isLoading, onAllReady]);
